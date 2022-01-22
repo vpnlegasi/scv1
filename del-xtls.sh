@@ -35,7 +35,7 @@ client=$(grep "^### " "/etc/xray-mini/config.json" | cut -d ' ' -f 2 | sed -n "$
 expired=$(grep "^### " "/etc/xray-mini/config.json" | cut -d ' ' -f 4 | sed -n "${CLIENT_002}"p)
 
 # // Removing Data From Server Configuration
-sed -i "/^### Username : $client | Expired : $expired/,/^### Username : $client | Expired : $expired/d" /etc/xray-mini/config.json
+sed -i "/^### User : $client | Expired : $expired/,/^### User : $client | Expired : $expired/d" /etc/xray-mini/config.json
 
 # // Restarting XRay Service
 systemctl daemon-reload

@@ -17,7 +17,6 @@ clear
 
 # // Read User Data
 read -p "username : " username
-read -p "BUG TELCO: " BUG
 username="$(echo ${username} | sed 's/ //g' | tr -d '\r')"
 port=$(cat /etc/xray-mini/config.json | grep port | sed 's/"//g' | sed 's/port//g' | sed 's/://g' | sed 's/,//g' | sed 's/       //g')
 
@@ -37,6 +36,7 @@ fi
 
 # // Read Expired Date
 read -p "Expired  : " exp
+read -p "BUG TELCO: " BUG
 
 # // Data String
 exp=`date -d "$exp" +"%Y-%m-%d"`

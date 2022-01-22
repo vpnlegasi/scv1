@@ -15,40 +15,41 @@ fi
 clear
 
 
-# // Input
-port=$(cat /etc/xray-mini/config.json | grep port | sed 's/"//g' | sed 's/port//g' | sed 's/://g' | sed 's/,//g' | sed 's/       //g')
-username=( `cat /etc/xray-mini/config.json | grep '^###' | cut -d ' ' -f 2`);
+# // Read User Data
+read -p "username : " username
+username="$(echo ${username} | sed 's/ //g' | tr -d '\r')"
 
-until [[ $username =~ ^[a-zA-Z0-9_]+$ && ${CLIENT_EXISTS} == '0' ]]; do
-		read -rp "username: " -e username
-		CLIENT_EXISTS=$(grep -w $username /etc/xray-mini/config.json | wc -l)
+# // Validate Input
+if [[ $username == "" ]]; then
+    echo -e "${EROR} Please Input an username !"
+    exit 1
+fi
 
-		if [[ ${CLIENT_EXISTS} == '1' ]]; then
-			echo ""
-			echo -e "A client with the specified name was already created, please choose another name."
-      sleep 2
-			exit
-		fi
-	done
-  uuid=$(cat /proc/sys/kernel/random/uuid)
-  domain=$(cat /root/domain)
-  read -p "Expired    : " exp
-  read -p "BUG TELCO  : " BUG
-exp=`date -d "$exp days" +"%Y-%m-%d"`
+# // Checking User already on vps or no
+if [[ "$( cat /etc/xray-mini/config.json | grep -w ${username})" == "" ]]; then
+    Do=Nothing
+else
+    echo -e "${EROR} User ( ${YELLOW}$Username${NC} ) Already Exists !"
+    exit 1
+fi
+
+# // Read Expired Date
+read -p "Expired  : " exp
+
+# // Data String
+exp=`date -d "$exp" +"%Y-%m-%d"`
 hariini=`date -d "0 days" +"%Y-%m-%d"`
 
+# // Vless Data
+
+domain=$( cat /root/domain)
+port=$( cat /etc/xray-mini/config.json | grep -w port | awk '{print $2}' | sed 's/,//g' )
+uuid=$(cat /proc/sys/kernel/random/uuid)
+
 # // Input Data User Ke XRay Vless TCP XTLS
-
-sed -i '/#XRay$/a\### '"username : $Username | Expired : $exp"'\
+sed -i '/#XRay$/a\### '"username : $username | exp : $exp"'\
             },{"id": "'""$uuid""'","flow": "'xtls-rprx-direct'","email": "'""$username""'"\
-#BELAKANG '"Username : $username | Expired : $exp"'' /etc/xray-mini/config.json
-IP=$( curl -s ipinfo.io/ip )
-
-# // Link Configration
-vlesslink1="vless://${uuid}@${domain}:${port}?security=xtls&encryption=none&headerType=none&type=tcp&flow=xtls-rprx-direct&sni=${BUG}#$username"
-vlesslink2="vless://${uuid}@${domain}:${port}?security=xtls&encryption=none&headerType=none&type=tcp&flow=xtls-rprx-direct-udp443&sni=${BUG}#$username"
-vlesslink3="vless://${uuid}@${domain}:${port}?security=xtls&encryption=none&headerType=none&type=tcp&flow=xtls-rprx-splice&sni=${BUG}#$username"
-vlesslink4="vless://${uuid}@${domain}:${port}?security=xtls&encryption=none&headerType=none&type=tcp&flow=xtls-rprx-splice-udp443&sni=${BUG}#$username"
+#BELAKANG '"username : $username | Expired : $exp"'' /etc/xray-mini/config.json
 
 
 systemctl restart xray-mini
@@ -59,12 +60,12 @@ echo -e "================================="
 echo -e "            XRAY TCP XTLS          "
 echo -e "================================="
 echo -e "Remarks        : ${username}"
-echo -e "HOST IP        : ${IP}"
-echo -e "Domain         : ${domain}"
-echo -e "port XTLS      : $port"
-echo -e "id             : ${uuid}"
-echo -e "Encryption     : none"
-echo -e "network        : tcp"
+echo -e "HOST IP         : ${IP}"
+echo -e "Domain          : ${domain}"
+echo -e "port XTLS       : $port"
+echo -e "id                      : ${uuid}"
+echo -e "Encryption      : none"
+echo -e "network           : tcp"
 echo -e "================================="
 echo -e " TLS VLESS DIRECT LINK"
 echo -e '```'${vlesslink1}'```'

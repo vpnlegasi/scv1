@@ -20,7 +20,7 @@ port=$(cat /etc/xray-mini/config.json | grep port | sed 's/"//g' | sed 's/port//
 username=( `cat /etc/xray-mini/config.json | grep '^###' | cut -d ' ' -f 2`);
 
 until [[ $username =~ ^[a-zA-Z0-9_]+$ && ${CLIENT_EXISTS} == '0' ]]; do
-		read -rp "Username: " -e username
+		read -rp "username: " -e username
 		CLIENT_EXISTS=$(grep -w $username /etc/xray-mini/config.json | wc -l)
 
 		if [[ ${CLIENT_EXISTS} == '1' ]]; then
@@ -39,9 +39,9 @@ hariini=`date -d "0 days" +"%Y-%m-%d"`
 
 # // Input Data User Ke XRay Vless TCP XTLS
 
-sed -i '/#XRay$/a\### '"Username : $Username | Expired : $exp"'\
-            },{"id": "'""$uuid""'","flow": "'xtls-rprx-direct'","email": "'""$Username""'"\
-#BELAKANG '"Username : $Username | Expired : $exp"'' /etc/xray-mini/vless-tls.json
+sed -i '/#XRay$/a\### '"username : $username | Expired : $exp"'\
+            },{"id": "'""$uuid""'","flow": "'xtls-rprx-direct'","email": "'""$username""'"\
+#BELAKANG '"username : $Username | Expired : $exp"'' /etc/xray-mini/vless-tls.json
 IP=$( curl -s ipinfo.io/ip )
 
 # // Link Configration

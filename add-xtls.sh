@@ -46,6 +46,7 @@ hariini=`date -d "0 days" +"%Y-%m-%d"`
 domain=$( cat /root/domain)
 port=$( cat /etc/xray-mini/config.json | grep -w port | awk '{print $2}' | sed 's/,//g' )
 uuid=$(cat /proc/sys/kernel/random/uuid)
+IP=$(wget -qO- ifconfig.co)
 
 # // Input Data User Ke XRay Vless TCP XTLS
 sed -i '/#XRay$/a\### '"username : $username | exp : $exp"'\

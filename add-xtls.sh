@@ -35,11 +35,11 @@ else
 fi
 
 # // Read Expired Date
-read -p "Expired  : " exp
+read -p "Expired  : " Expired
 read -p "BUG TELCO: " BUG
 
 # // Data String
-exp=`date -d "$exp" +"%Y-%m-%d"`
+Expired=`date -d "$exp" +"%Y-%m-%d"`
 hariini=`date -d "0 days" +"%Y-%m-%d"`
 
 # // Vless Data
@@ -49,9 +49,9 @@ uuid=$(cat /proc/sys/kernel/random/uuid)
 IP=$(wget -qO- ifconfig.co)
 
 # // Input Data User Ke XRay Vless TCP XTLS
-sed -i '/#XRay$/a\### '"username : $username | exp : $exp"'\
+sed -i '/#XRay$/a\### '"username : $username | Expired : $Expired"'\
             },{"id": "'""$uuid""'","flow": "'xtls-rprx-direct'","email": "'""$username""'"\
-#BELAKANG '"username : $username | Expired : $exp"'' /etc/xray-mini/config.json
+#BELAKANG '"username : $username | Expired : $Expired"'' /etc/xray-mini/config.json
 
 # // Link Configration
 vlesslink1="vless://${uuid}@${domain}:${port}?security=xtls&encryption=none&headerType=none&type=tcp&flow=xtls-rprx-direct&sni=${BUG}#$username"
@@ -88,5 +88,5 @@ echo -e " TLS VLESS SPLICE UDP 443 LINK"
 echo -e '```'${vlesslink4}'```'
 echo -e "==============================="
 echo -e " Created     = ${hariini}"
-echo -e " Expired     = ${exp}"
+echo -e " Expired     = ${Expired}"
 echo -e "==============================="

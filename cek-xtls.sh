@@ -14,7 +14,7 @@ exit 0
 fi
 clear
 echo -n > /tmp/other.txt
-data=( `cat /etc/xray-mini/config.json | grep '^#DEPAN' | cut -d ' ' -f 6`);
+data=( `cat /etc/xray-mini/config.json | grep '^#DEPAN' | cut -d ' ' -f 3`);
 echo "-------------------------------";
 echo "Name : XRAY XTLS User Login";
 echo "-------------------------------";

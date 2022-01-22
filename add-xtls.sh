@@ -20,7 +20,7 @@ port=$(cat /etc/xray-mini/config.json | grep port | sed 's/"//g' | sed 's/port//
 username=( `cat /etc/xray-mini/config.json | grep '^###' | cut -d ' ' -f 2`);
 
 until [[ $username =~ ^[a-zA-Z0-9_]+$ && ${CLIENT_EXISTS} == '0' ]]; do
-		read -rp "User: " -e user
+		read -rp "Username: " -e username
 		CLIENT_EXISTS=$(grep -w $username /etc/xray-mini/config.json | wc -l)
 
 		if [[ ${CLIENT_EXISTS} == '1' ]]; then

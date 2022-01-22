@@ -18,6 +18,7 @@ clear
 # // Read User Data
 read -p "username : " username
 username="$(echo ${username} | sed 's/ //g' | tr -d '\r')"
+port=$(cat /etc/xray-mini/config.json | grep port | sed 's/"//g' | sed 's/port//g' | sed 's/://g' | sed 's/,//g' | sed 's/       //g')
 
 # // Validate Input
 if [[ $username == "" ]]; then
@@ -50,6 +51,12 @@ uuid=$(cat /proc/sys/kernel/random/uuid)
 sed -i '/#XRay$/a\### '"username : $username | exp : $exp"'\
             },{"id": "'""$uuid""'","flow": "'xtls-rprx-direct'","email": "'""$username""'"\
 #BELAKANG '"username : $username | Expired : $exp"'' /etc/xray-mini/config.json
+
+# // Link Configration
+vlesslink1="vless://${uuid}@${domain}:${port}?security=xtls&encryption=none&headerType=none&type=tcp&flow=xtls-rprx-direct&sni=${BUG}#$username"
+vlesslink2="vless://${uuid}@${domain}:${port}?security=xtls&encryption=none&headerType=none&type=tcp&flow=xtls-rprx-direct-udp443&sni=${BUG}#$username"
+vlesslink3="vless://${uuid}@${domain}:${port}?security=xtls&encryption=none&headerType=none&type=tcp&flow=xtls-rprx-splice&sni=${BUG}#$username"
+vlesslink4="vless://${uuid}@${domain}:${port}?security=xtls&encryption=none&headerType=none&type=tcp&flow=xtls-rprx-splice-udp443&sni=${BUG}#$username"
 
 
 systemctl restart xray-mini

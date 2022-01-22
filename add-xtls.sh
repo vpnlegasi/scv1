@@ -17,11 +17,11 @@ clear
 
 # // Input
 port=$(cat /etc/xray-mini/config.json | grep port | sed 's/"//g' | sed 's/port//g' | sed 's/://g' | sed 's/,//g' | sed 's/       //g')
-user=( `cat /etc/xray-mini/config.json | grep '^###' | cut -d ' ' -f 2`);
+username=( `cat /etc/xray-mini/config.json | grep '^###' | cut -d ' ' -f 2`);
 
-until [[ $user =~ ^[a-zA-Z0-9_]+$ && ${CLIENT_EXISTS} == '0' ]]; do
+until [[ $username =~ ^[a-zA-Z0-9_]+$ && ${CLIENT_EXISTS} == '0' ]]; do
 		read -rp "User: " -e user
-		CLIENT_EXISTS=$(grep -w $user /etc/xray-mini/config.json | wc -l)
+		CLIENT_EXISTS=$(grep -w $username /etc/xray-mini/config.json | wc -l)
 
 		if [[ ${CLIENT_EXISTS} == '1' ]]; then
 			echo ""
@@ -39,15 +39,16 @@ hariini=`date -d "0 days" +"%Y-%m-%d"`
 
 # // Input Data User Ke XRay Vless TCP XTLS
 
-sed -i '/#XRay$/a\### '"$user $exp"'\
-},{"id": "'""$uuid""'","flow": "xtls-rprx-direct","email": "'""$user""'"' /etc/xray-mini/config.json
+sed -i '/#XRay$/a\### '"Username : $Username | Expired : $exp"'\
+            },{"id": "'""$uuid""'","flow": "'xtls-rprx-direct'","email": "'""$Username""'"\
+#BELAKANG '"Username : $Username | Expired : $exp"'' /etc/xray-mini/vless-tls.json
 IP=$( curl -s ipinfo.io/ip )
 
 # // Link Configration
-vlesslink1="vless://${uuid}@${domain}:${port}?security=xtls&encryption=none&headerType=none&type=tcp&flow=xtls-rprx-direct&sni=${BUG}#$user"
-vlesslink2="vless://${uuid}@${domain}:${port}?security=xtls&encryption=none&headerType=none&type=tcp&flow=xtls-rprx-direct-udp443&sni=${BUG}#$user"
-vlesslink3="vless://${uuid}@${domain}:${port}?security=xtls&encryption=none&headerType=none&type=tcp&flow=xtls-rprx-splice&sni=${BUG}#$user"
-vlesslink4="vless://${uuid}@${domain}:${port}?security=xtls&encryption=none&headerType=none&type=tcp&flow=xtls-rprx-splice-udp443&sni=${BUG}#$user"
+vlesslink1="vless://${uuid}@${domain}:${port}?security=xtls&encryption=none&headerType=none&type=tcp&flow=xtls-rprx-direct&sni=${BUG}#$username"
+vlesslink2="vless://${uuid}@${domain}:${port}?security=xtls&encryption=none&headerType=none&type=tcp&flow=xtls-rprx-direct-udp443&sni=${BUG}#$username"
+vlesslink3="vless://${uuid}@${domain}:${port}?security=xtls&encryption=none&headerType=none&type=tcp&flow=xtls-rprx-splice&sni=${BUG}#$username"
+vlesslink4="vless://${uuid}@${domain}:${port}?security=xtls&encryption=none&headerType=none&type=tcp&flow=xtls-rprx-splice-udp443&sni=${BUG}#$username"
 
 
 systemctl restart xray-mini
@@ -57,7 +58,7 @@ echo -e ""
 echo -e "================================="
 echo -e "            XRAY TCP XTLS          "
 echo -e "================================="
-echo -e "Remarks        : ${user}"
+echo -e "Remarks        : ${username}"
 echo -e "HOST IP        : ${IP}"
 echo -e "Domain         : ${domain}"
 echo -e "port XTLS      : $port"

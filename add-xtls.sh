@@ -17,6 +17,7 @@ clear
 
 # // Read User Data
 read -p "username : " username
+
 username="$(echo ${username} | sed 's/ //g' | tr -d '\r')"
 port=$(cat /etc/xray-mini/config.json | grep port | sed 's/"//g' | sed 's/port//g' | sed 's/://g' | sed 's/,//g' | sed 's/       //g')
 
@@ -42,7 +43,8 @@ exp=`date -d "$exp" +"%Y-%m-%d"`
 hariini=`date -d "0 days" +"%Y-%m-%d"`
 
 # // Vless Data
-
+read -p "username : " username
+read -p "BUG TELCO : " BUG
 domain=$( cat /root/domain)
 port=$( cat /etc/xray-mini/config.json | grep -w port | awk '{print $2}' | sed 's/,//g' )
 uuid=$(cat /proc/sys/kernel/random/uuid)

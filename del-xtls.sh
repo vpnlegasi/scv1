@@ -16,11 +16,11 @@ clear
 
 # // Getting XRay Client Data
 
-CLIENT_001=$(grep -c -E "^### " "/etc/xray-mini/config.json")
+CLIENT_001=$(grep -c -E "^### username : " "/etc/xray-mini/config.json")
 echo "    =================================================="
 echo "               LIST VLESS CLIENT ON THIS VPS"
 echo "    =================================================="
-grep -e "^### " "/etc/xray-mini/config.json" | cut -d ' ' -f 2-8 | nl -s ') '
+grep -e "^### username : " "/etc/xray-mini/config.json" | cut -d ' ' -f 2-8 | nl -s ') '
 	until [[ ${CLIENT_002} -ge 1 && ${CLIENT_002} -le ${CLIENT_001} ]]; do
 		if [[ ${CLIENT_002} == '1' ]]; then
                 echo "    =================================================="

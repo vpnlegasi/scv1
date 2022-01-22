@@ -16,7 +16,7 @@ clear
 # // Getting V2Ray Client Data
 CLIENT_001=$(grep -c -E "^### " "/etc/xray-mini/config.json")
 echo "   
-CLIENT_002=$(grep -E "^### " "/etc/xray-mini/config.json" | cut -d ' ' -f 3 ==============================================="
+CLIENT_002=$(grep -E "^### " "/etc/xray-mini/config.json" | cut -d ' ' -f 3 ') ==============================================="
 echo "            LIST VLESS CLIENT ON THIS VPS"
 echo "    ==============================================="
 grep -E "^### " "/etc/xray-mini/config.json" | cut -d ' ' -f 2-3 | nl -s ') '

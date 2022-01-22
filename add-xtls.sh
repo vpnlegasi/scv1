@@ -39,9 +39,9 @@ hariini=`date -d "0 days" +"%Y-%m-%d"`
 
 # // Input Data User Ke XRay Vless TCP XTLS
 
-sed -i '/#XRay$/a\### '"username : $username | Expired : $exp"'\
+sed -i '/#XRay$/a\### '"username : $Username | Expired : $exp"'\
             },{"id": "'""$uuid""'","flow": "'xtls-rprx-direct'","email": "'""$username""'"\
-#BELAKANG '"username : $Username | Expired : $exp"'' /etc/xray-mini/vless-tls.json
+#BELAKANG '"Username : $username | Expired : $exp"'' /etc/xray-mini/config.json
 IP=$( curl -s ipinfo.io/ip )
 
 # // Link Configration

@@ -35,11 +35,18 @@ else
     exit 1
 fi
      
-uuid=$(cat /proc/sys/kernel/random/uuid)
-read -p "Expired (days): " masaaktif
-read -p "BUG TELCO: " bug
-exp=`date -d "$masaaktif days" +"%Y-%m-%d"`
+# // Expired Date
+Jumlah_Hari=1
+exp=`date -d "$Jumlah_Hari days" +"%Y-%m-%d"`
 hariini=`date -d "0 days" +"%Y-%m-%d"`
+read -p "BUG TELCO  : " BUG
+domain=$(cat /etc/v2ray/domain)
+port=$(cat /etc/xray-mini/config.json | grep port | sed 's/"//g' | sed 's/port//g' | sed 's/://g' | sed 's/,//g' | sed 's/       //g')
+uuid=$(cat /proc/sys/kernel/random/uuid)
+IP=$(wget -qO- ipinfo.io/ip)
+
+
+# // Input Data User Ke XRay Vmess
 sed -i '/#tls$/a\### '"$user $exp"'\
 },{"id": "'""$uuid""'","alterId": '"0"',"email": "'""$user""'"' /usr/local/etc/xray/config.json
 sed -i '/#none$/a\### '"$user $exp"'\

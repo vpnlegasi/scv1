@@ -1,4 +1,5 @@
-# vpnlegasi? hehe
+# AUTOSCRIPT BY VPN LEGASI (MODED)
+# PM TELEGRAM : https://t.me/vpnlegasi
 
  <h2 align="center">AutoScript Install VPN By vpnlegasi <img src="https://img.shields.io/badge/Version-1.0(stable)-blue.svg"></h2>
 

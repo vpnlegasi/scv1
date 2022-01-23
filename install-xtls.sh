@@ -140,12 +140,12 @@ wget -O add-xtls "https://raw.githubusercontent.com/vpnlegasi/scv1/main/add-xtls
 wget -O del-xtls "https://raw.githubusercontent.com/vpnlegasi/scv1/main/del-xtls.sh"
 wget -O renew-xtls "https://raw.githubusercontent.com/vpnlegasi/scv1/main/renew-xtls.sh"
 wget -O cek-xtls "https://raw.githubusercontent.com/vpnlegasi/scv1/main/cek-xtls.sh"
-wget -O trial-vxtls "https://raw.githubusercontent.com/vpnlegasi/scv1/main/trial-vxtls.sh"
+wget -O trial-xtls "https://raw.githubusercontent.com/vpnlegasi/scv1/main/trial-xtls.sh"
 
 chmod +x add-xtls
 chmod +x del-xtls
 chmod +x renew-xtls
 chmod +x cek-xtls
-chmod +x trial-vxtls
+chmod +x trial-xtls
 # // Remove Not Used Files
 rm -f install-xray.sh

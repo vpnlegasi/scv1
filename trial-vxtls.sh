@@ -73,8 +73,8 @@ sed -i '/#XRay$/a\### '"$username $exp"'\
 # // Link Configration
 
 
-vlesslink1="vless://${uuid}@${domain}:${none}?path=/xray&security=none&encryption=none&host=${BUG}&type=ws#$username"
-vlesslink2="vless://${uuid}@${domain}:$tls?path=/xray&security=tls&encryption=none&host=${BUG}&type=ws#$username"
+vlesslink1="vless://${uuid}@${domain}:${none}?path=/xray&security=none&encryption=none&host=${BUG}&type=ws#$user"
+vlesslink2="vless://${uuid}@${domain}:$tls?path=/xray&security=tls&encryption=none&host=${BUG}&type=ws#$user"
 vlesslink3="vless://${uuid}@${domain}:${port}?security=xtls&encryption=none&headerType=none&type=tcp&flow=xtls-rprx-direct&sni=${BUG}#$username"
 vlesslink4="vless://${uuid}@${domain}:${port}?security=xtls&encryption=none&headerType=none&type=tcp&flow=xtls-rprx-direct-udp443&sni=${BUG}#$username"
 vlesslink5="vless://${uuid}@${domain}:${port}?security=xtls&encryption=none&headerType=none&type=tcp&flow=xtls-rprx-splice&sni=${BUG}#$username"

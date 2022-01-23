@@ -18,7 +18,7 @@ tls="$(cat ~/log-install.txt | grep -w "Xray Vmess TLS" | cut -d: -f2|sed 's/ //
 none="$(cat ~/log-install.txt | grep -w "Xray Vmess None TLS" | cut -d: -f2|sed 's/ //g')"
 
 # User Trial Vmess
-User="VPNLegasi-$( </dev/urandom tr -dc 0-9A-Z | head -c4 )"
+user="VPNLegasi-$( </dev/urandom tr -dc 0-9A-Z | head -c4 )"
 user="$(echo ${user} | sed 's/ //g' | tr -d '\r' | tr -d '\r\n' )" # > // Filtering If User Type Space
 
 # // Validate Input

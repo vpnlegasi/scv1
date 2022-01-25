@@ -30,13 +30,13 @@ do
 
     # // Counting On Simple Algoritmatika
     now=`date -d "0 days" +"%Y-%m-%d"`
-    d1=$(date -d "$expired" +%s)
+    d1=$(date -d "$exp" +%s)
     d2=$(date -d "$now" +%s)
     sisa_hari=$(( (d1 - d2) / 86400 ))
 
     # // String For Do Task
     client="$user"
-    expired="$expired"
+    expired="$exp"
 
 # // Validate Use If Syntax
 if [[ $sisa_hari -lt 1 ]]; then
@@ -48,8 +48,8 @@ if [[ $sisa_hari -lt 1 ]]; then
     systemctl restart xray-mini
    
     # // Successfull Deleted Expired Client
-    echo "Username : $user | Expired : $expired | Deleted $now" >> /etc/xray-mini/config.json
-    echo "Username : $user | Expired : $expired | Deleted $now"
+    echo "Username : $user | Expired : $exp | Deleted $now" >> /etc/xray-mini/config.json
+    echo "Username : $user | Expired : $exp | Deleted $now"
 
 else
     Skip="true"

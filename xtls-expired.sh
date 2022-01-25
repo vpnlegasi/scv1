@@ -26,7 +26,7 @@ for((i=1; i<=$totalaccounts; i++ ))
 do
     # // Username Interval Counting
     user=`head -n $i /etc/xray-mini/config.json | tail -n 1`
-    expired=$( cat /etc/xray-mini/config.json | grep -w $user | head -n1 | awk '{print $8}' )
+    exp=$( cat /etc/xray-mini/config.json | grep -w $user | head -n1 | awk '{print $8}' )
 
     # // Counting On Simple Algoritmatika
     now=`date -d "0 days" +"%Y-%m-%d"`
@@ -36,7 +36,7 @@ do
 
     # // String For Do Task
     client="$user"
-    expired="$exp"
+    exp="$exp"
 
 # // Validate Use If Syntax
 if [[ $sisa_hari -lt 1 ]]; then

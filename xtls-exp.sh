@@ -50,14 +50,14 @@ clear && clear && clear
 clear;clear;clear
 
 # // String For User Data Option
-grep -c -E "^### " "/etc/xray-mini/config.json" > /etc/${Auther}/jumlah-akun-xtls.txt
-grep "^### " "/etc/xray-mini/config.json" | cut -d ' ' -f 4  > /etc/${Auther}/akun-xtls.txt
-totalaccounts=`cat /etc/${Auther}/akun-xtls.txt | wc -l` 
-echo "Total Akun = $totalaccounts" > /etc/${Auther}/total-akun-xtls.txt
+grep -c -E "^### " "/etc/xray-mini/config.json" > /etc/${Auther}/jumlah-akun-xtls.db
+grep "^### " "/etc/xray-mini/config.json" | cut -d ' ' -f 4  > /etc/${Auther}/akun-xtls.db
+totalaccounts=`cat /etc/${Auther}/akun-xtls.db | wc -l` 
+echo "Total Akun = $totalaccounts" > /etc/${Auther}/total-akun-xtls.db
 for((i=1; i<=$totalaccounts; i++ ))
 do
     # // user Interval Counting
-    user=`head -n $i /etc/${Auther}/akun-xtls.txt | tail -n 1`
+    user=`head -n $i /etc/${Auther}/akun-xtls.db | tail -n 1`
     exp=$( cat /etc/xray-mini/config.json | grep -w $user | head -n1 | awk '{print $8}' )
 
     # // Counting On Simple Algoritmatika
@@ -80,7 +80,7 @@ if [[ $sisa_hari -lt 1 ]]; then
     systemctl restart xray-mini
     
     # // Successfull Deleted exp Client
-    echo "user : $user | exp : $exp | Deleted $now" >> /etc/${Auther}/xtls-exp-deleted.txt
+    echo "user : $user | exp : $exp | Deleted $now" >> /etc/${Auther}/xtls-exp-deleted.db
     
 
 else

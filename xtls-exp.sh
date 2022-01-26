@@ -58,7 +58,7 @@ for((i=1; i<=$totalaccounts; i++ ))
 do
     # // user Interval Counting
     user=`head -n $i /etc/${Auther}/akun-xtls.txt | tail -n 1`
-    exp=$( cat /etc/xray-mini/vless-nontls.json | grep -w $user | head -n1 | awk '{print $8}' )
+    exp=$( cat /etc/xray-mini/config.json | grep -w $user | head -n1 | awk '{print $8}' )
 
     # // Counting On Simple Algoritmatika
     now=`date -d "0 days" +"%Y-%m-%d"`

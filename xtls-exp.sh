@@ -52,13 +52,13 @@ clear;clear;clear
 # // String For User Data Option
 grep -c -E "^### " "/etc/xray-mini/config.json" > /etc/${Auther}/jumlah-akun-xtls.txt
 grep "^### " "/etc/xray-mini/config.json" | cut -d ' ' -f 4  > /etc/${Auther}/akun-xtls.txt
-totalaccounts=`cat /etc/${Auther}/akun-xtls.txt | wc -l` 
-echo "Total Akun = $totalaccounts" > /etc/${Auther}/total-akun-xtls.txt
-for((i=1; i<=$totalaccounts; i++ ))
+CLIENT_NUMBER=`cat /etc/${Auther}/akun-xtls.txt | wc -l` 
+echo "Total Akun = $CLIENT_NUMBER" > /etc/${Auther}/total-akun-xtls.txt
+for((i=1; i<=$CLIENT_NUMBER; i++ ))
 do
     # // user Interval Counting
-    user=`head -n $i /etc/${Auther}/akun-xtls.txt | tail -n 1`
-    exp=$( cat /etc/xray-mini/config.json | grep -w $user | head -n1 | awk '{print $8}' )
+    user=$(grep -E "^### " "/etc/xray-mini/config.json" | cut -d ' ' -f 2 | sed -n "${CLIENT_NUMBER}"p)
+    exp=$(grep -E "^### " "/etc/xray-mini/config.json" | cut -d ' ' -f 3 | sed -n "${CLIENT_NUMBER}"p)
 
     # // Counting On Simple Algoritmatika
     now=`date -d "0 days" +"%Y-%m-%d"`
@@ -73,6 +73,7 @@ do
 # // Validate Use If Syntax
 if [[ $sisa_hari -lt 1 ]]; then
     # // Removing Data From Server Configuration
+
     sed -i "/^### $user $exp/,/^},{/d" /etc/xray-mini/config.json
 
     # // Restarting XRay Service
@@ -81,7 +82,6 @@ if [[ $sisa_hari -lt 1 ]]; then
     
     # // Successfull Deleted exp Client
     echo "user : $user | exp : $exp | Deleted $now" >> /etc/${Auther}/xtls-exp-deleted.txt
-    
 
 else
     Skip="true"

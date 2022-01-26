@@ -30,6 +30,7 @@ export WARNING="${RED}\e[5m"
 export UNDERLINE="\e[4m"
 
 # // Path
+
 Auther=legasi
 
 # // Root Checking
@@ -50,10 +51,10 @@ clear && clear && clear
 clear;clear;clear
 
 # // String For User Data Option
-grep -c -E "^### " "/etc/xray-mini/config.json" > /etc/${Auther}/jumlah-akun-xtls.txt
-grep "^### " "/etc/xray-mini/config.json" | cut -d ' ' -f 4  > /etc/${Auther}/akun-xtls.txt
-CLIENT_NUMBER=`cat /etc/${Auther}/akun-xtls.txt | wc -l` 
-echo "Total Akun = $CLIENT_NUMBER" > /etc/${Auther}/total-akun-xtls.txt
+grep -c -E "^### " "/etc/xray-mini/config.json" > /tmp/jumlah-akun-xtls.txt
+grep "^### " "/etc/xray-mini/config.json" | cut -d ' ' -f 4  > /tmp/akun-xtls.txt
+CLIENT_NUMBER=`cat /tmp/akun-xtls.txt | wc -l` 
+echo "Total Akun = $CLIENT_NUMBER" > /tmp/total-akun-xtls.txt
 for((i=1; i<=$CLIENT_NUMBER; i++ ))
 do
     # // user Interval Counting
@@ -67,7 +68,7 @@ do
     sisa_hari=$(( (d1 - d2) / 86400 ))
 
     # // String For Do Task
-    client="$user"
+    user=( `cat /etc/xray-mini/config.json | grep '^###' | cut -d ' ' -f 2`);
     exp="$exp"
 
 # // Validate Use If Syntax
@@ -81,7 +82,7 @@ if [[ $sisa_hari -lt 1 ]]; then
     systemctl restart xray-mini
     
     # // Successfull Deleted exp Client
-    echo "user : $user | exp : $exp | Deleted $now" >> /etc/${Auther}/xtls-exp-deleted.txt
+    echo "user : $user | exp : $exp | Deleted $now" >> /tmp/xtls-exp-deleted.txt
 
 else
     Skip="true"
@@ -89,3 +90,9 @@ fi
 
 # // End Function
 done
+
+# // Cleaning data
+
+rm -rf /tmp/jumlah-akun-xtls.txt
+rm -rf /tmp/akun-xtls.txt
+rm -rf/tmp/total-akun-xtls.txt

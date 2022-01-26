@@ -95,4 +95,4 @@ done
 
 rm -rf /tmp/jumlah-akun-xtls.txt
 rm -rf /tmp/akun-xtls.txt
-rm -rf/tmp/total-akun-xtls.txt
+rm -rf /tmp/total-akun-xtls.txt

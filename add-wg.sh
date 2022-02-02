@@ -30,7 +30,7 @@ fi
 clear
 # Load params
 source /etc/wireguard/params
-SERVER_PUB_IP=$(cat /etc/rare/v2ray/domain);
+SERVER_PUB_IP=$(cat /root/domain);
 	echo ""
 	echo "Tell me a name for the client."
 	echo "Use one word only, no special characters."
@@ -63,6 +63,7 @@ SERVER_PUB_IP=$(cat /etc/rare/v2ray/domain);
 	MYIP=$(wget -qO- ifconfig.co);
 	read -p "Expired (days): " masaaktif
 	exp=`date -d "$masaaktif days" +"%Y-%m-%d"`
+	hariini=`date -d "0 days" +"%Y-%m-%d"`
 
 	# Generate key pair for the client
 	CLIENT_PRIV_KEY=$(wg genkey)
@@ -88,7 +89,7 @@ PublicKey = $CLIENT_PUB_KEY
 PresharedKey = $CLIENT_PRE_SHARED_KEY
 AllowedIPs = $CLIENT_ADDRESS/32" >>"/etc/wireguard/$SERVER_WG_NIC.conf"
 	systemctl restart "wg-quick@$SERVER_WG_NIC"
-	cp $HOME/$SERVER_WG_NIC-client-$CLIENT_NAME.conf /usr/share/nginx/html/$CLIENT_NAME.conf
+	cp $HOME/$SERVER_WG_NIC-client-$CLIENT_NAME.conf /home/vps/public_html/$CLIENT_NAME.conf
 	clear
 	sleep 0.5
 	echo Generate PrivateKey
@@ -98,8 +99,12 @@ AllowedIPs = $CLIENT_ADDRESS/32" >>"/etc/wireguard/$SERVER_WG_NIC.conf"
 	echo Generate PresharedKey
 	clear
 	echo -e ""
-	echo -e "==========-Wireguard-=========="
-	echo -e "Wireguard	: https://$MYIP/$CLIENT_NAME.conf"
 	echo -e "==============================="
-	echo -e "Expired On      : $exp"
+	echo -e "     YOUR WIREGUARD ACCOUNT    "
+	echo -e "==============================="
+	echo -e "Wireguard	: http://$MYIP:81/$CLIENT_NAME.conf"
+	echo -e "==============================="
+ 	echo -e " Created   : ${hariini}"
+	echo -e " Expired   : ${exp}"
+	echo -e "==============================="
 	rm -f /root/wg0-client-$CLIENT_NAME.conf
